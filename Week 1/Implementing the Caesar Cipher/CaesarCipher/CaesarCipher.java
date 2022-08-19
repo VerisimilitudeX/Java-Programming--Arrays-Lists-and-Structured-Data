@@ -30,7 +30,7 @@ public class CaesarCipher {
         return encrypted;
     }
 
-    public static String decrypt(String encrypted) {
+    public String decrypt(String encrypted) {
         char[] charInput = encrypted.toCharArray();
         for (char ch : charInput) {
             int ASCII = (int) ch;
@@ -49,7 +49,7 @@ public class CaesarCipher {
         return decrypted;
     }
 
-    public static void bruteForce(String encrypted) {
+    public void bruteForce(String encrypted) {
         for (int key = 0; key < 26; key++) {
             String decrypted = CaesarCipher.decrypt(encrypted);
             System.out.println(decrypted + " " + key);

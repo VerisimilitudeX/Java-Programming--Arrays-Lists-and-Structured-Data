@@ -5,10 +5,11 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter key: ");
         int key = sc.nextInt();
+        sc.close();
 
         CaesarCipher cc = new CaesarCipher(key);
         System.out.println(cc.encrypt("Hello"));
         System.out.println(cc.decrypt("Mjqqt"));
-        bruteForce("");
+        cc.bruteForce("");
     }
 }
