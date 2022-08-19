@@ -49,7 +49,7 @@ public class GladLib {
 
 	private String getSubstitute(String label) {
 		if (label.equals("country")) {
-			String randCountry = randomFrom(countryList); 
+			String randCountry = randomFrom(countryList);
 			if (wordsSeen.indexOf(randCountry) == -1) {
 				return randCountry;
 			} else {
@@ -69,7 +69,7 @@ public class GladLib {
 			} else {
 				return randomFrom(animalList);
 			}
-		} else if (label.equals("time")) {
+		} else if (label.equals("timeframe")) {
 			String randTime = randomFrom(timeList);
 			if (wordsSeen.indexOf(randTime) == -1) {
 				return randTime;
@@ -111,6 +111,8 @@ public class GladLib {
 			} else {
 				return randomFrom(adjectiveList);
 			}
+		} else if (label.equals("number")) {
+			return Integer.toString(myRandom.nextInt(100));
 		} else {
 			return "**UNKNOWN**";
 		}
