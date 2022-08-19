@@ -1,11 +1,3 @@
-
-/**
- * Find out how many times each word occurs, and
- * in particular the most frequently occurring word.
- * 
- * @author Duke Software Team
- * @version 1.0
- */
 import edu.duke.*;
 import java.util.ArrayList;
 
@@ -20,7 +12,7 @@ public class WordFrequencies
     }
     
     public void findUnique(){
-        FileResource resource = new FileResource();
+        FileResource resource = new FileResource("Week 2/Telling A Random Story/WordFrequencies/likeit.txt");
         
         for(String s : resource.words()){
             s = s.toLowerCase();
