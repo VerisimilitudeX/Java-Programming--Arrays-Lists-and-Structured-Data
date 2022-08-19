@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class CaesarCipher {
     private String encrypted;
     private String decrypted;
@@ -49,9 +47,28 @@ public class CaesarCipher {
         return decrypted;
     }
 
+    public int countLetters(String input) {
+        int[] alphaCount = new int[26];
+        String alphabet = "a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z";
+        for (char ch : input.toCharArray()) {
+            int index = alphabet.indexOf(Character.toLowerCase(ch));
+            if (index != -1) {
+                alphaCount[index]++;
+            }
+        }
+        int maxIndex = 0;
+        for (int index : alphaCount) {
+            if (index > maxIndex) {
+                maxIndex = index;
+            }
+        }
+        return maxIndex;
+    }
+
     public void bruteForce(String encrypted) {
         for (int key = 0; key < 26; key++) {
-            String decrypted = CaesarCipher.decrypt(encrypted);
+            CaesarCipher cc = new CaesarCipher(key);
+            String decrypted = cc.decrypt(encrypted);
             System.out.println(decrypted + " " + key);
         }
     }

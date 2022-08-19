@@ -8,7 +8,7 @@ public class Main {
         sc.close();
 
         CaesarCipher cc = new CaesarCipher(key);
-        System.out.println(cc.encrypt("Hello"));
+        System.out.println(cc.encrypt("Can you imagine life WITHOUT the internet AND computers in your pocket?"));
         System.out.println(cc.decrypt("Mjqqt"));
         cc.bruteForce("");
     }

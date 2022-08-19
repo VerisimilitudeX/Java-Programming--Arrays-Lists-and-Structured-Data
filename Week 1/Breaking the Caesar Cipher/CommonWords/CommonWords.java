@@ -32,12 +32,11 @@ public class CommonWords {
 	}
 
 	public static void main(String[] args) {
-		String[] plays = { "caesar.txt", "errors.txt", "hamlet.txt",
-				"likeit.txt", "macbeth.txt", "romeo.txt" };
+		String[] plays = { "manywords.txt" };
 		String[] common = getCommon();
 		int[] counts = new int[common.length];
 		for (int k = 0; k < plays.length; k++) {
-			FileResource resource = new FileResource("data/" + plays[k]);
+			FileResource resource = new FileResource("Week 1/Breaking the Caesar Cipher/CommonWords/data/errors.txt");
 			countWords(resource, common, counts);
 			System.out.println("done with " + plays[k]);
 		}
