@@ -20,6 +20,7 @@ public class AdvancedGladLib {
 	private static String dataSourceDirectory = "datalong";
 
 	public AdvancedGladLib() {
+		myMap = new HashMap<String, ArrayList<String>>();
 		initializeFromSource(dataSourceDirectory);
 		myRandom = new Random();
 		wordsSeen = new ArrayList<String>();
@@ -47,11 +48,11 @@ public class AdvancedGladLib {
 		myMap.put("time", timeList);
 		myMap.put("verb", verbList);
 		myMap.put("fruit", fruitList);
-
 	}
 
 	private void initializeFromSource(String source) {
-		String[] categories = { "adjective", "noun", "color", "country", "name", "animal", "timeframe", "verb", "fruit" };
+		String[] categories = { "adjective", "noun", "color", "country", "name", "animal", "timeframe", "verb",
+				"fruit" };
 		for (String category : categories) {
 			myMap.put(category, readIt(source + "/" + category + ".txt"));
 		}
@@ -63,74 +64,10 @@ public class AdvancedGladLib {
 	}
 
 	private String getSubstitute(String label) {
-		if (label.equals("country")) {
-			String randCountry = randomFrom(countryList);
-			if (wordsSeen.indexOf(randCountry) == -1) {
-				return randCountry;
-			} else {
-				return randomFrom(countryList);
-			}
-		} else if (label.equals("name")) {
-			String randName = randomFrom(nameList);
-			if (wordsSeen.indexOf(randName) == -1) {
-				return randName;
-			} else {
-				return randomFrom(nameList);
-			}
-		} else if (label.equals("animal")) {
-			String randAnimal = randomFrom(animalList);
-			if (wordsSeen.indexOf(randAnimal) == -1) {
-				return randAnimal;
-			} else {
-				return randomFrom(animalList);
-			}
-		} else if (label.equals("timeframe")) {
-			String randTime = randomFrom(timeList);
-			if (wordsSeen.indexOf(randTime) == -1) {
-				return randTime;
-			} else {
-				return randomFrom(timeList);
-			}
-		} else if (label.equals("verb")) {
-			String randVerb = randomFrom(verbList);
-			if (wordsSeen.indexOf(randVerb) == -1) {
-				return randVerb;
-			} else {
-				return randomFrom(verbList);
-			}
-		} else if (label.equals("fruit")) {
-			String randFruit = randomFrom(fruitList);
-			if (wordsSeen.indexOf(randFruit) == -1) {
-				return randFruit;
-			} else {
-				return randomFrom(fruitList);
-			}
-		} else if (label.equals("color")) {
-			String randColor = randomFrom(colorList);
-			if (wordsSeen.indexOf(randColor) == -1) {
-				return randColor;
-			} else {
-				return randomFrom(colorList);
-			}
-		} else if (label.equals("noun")) {
-			String randNoun = randomFrom(nounList);
-			if (wordsSeen.indexOf(randNoun) == -1) {
-				return randNoun;
-			} else {
-				return randomFrom(nounList);
-			}
-		} else if (label.equals("adjective")) {
-			String randAdjective = randomFrom(adjectiveList);
-			if (wordsSeen.indexOf(randAdjective) == -1) {
-				return randAdjective;
-			} else {
-				return randomFrom(adjectiveList);
-			}
-		} else if (label.equals("number")) {
-			return Integer.toString(myRandom.nextInt(100));
-		} else {
-			return "**UNKNOWN**";
+		if (myMap.containsKey(label)) {
+			return randomFrom(myMap.get(label));
 		}
+		return "**" + label + "**";
 	}
 
 	private String processWord(String w) {

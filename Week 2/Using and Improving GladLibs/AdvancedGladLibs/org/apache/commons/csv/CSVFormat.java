@@ -468,6 +468,8 @@ public final class CSVFormat implements Serializable {
 
     private final boolean trim;
 
+    private CSVPrinter csvPrinter;
+
     /**
      * Creates a customized CSV format.
      *
@@ -610,7 +612,8 @@ public final class CSVFormat implements Serializable {
     public String format(final Object... values) {
         final StringWriter out = new StringWriter();
         try {
-            new CSVPrinter(out, this).printRecord(values);
+            csvPrinter = new CSVPrinter(out, this);
+            csvPrinter.printRecord(values);
             return out.toString().trim();
         } catch (final IOException e) {
             // should not happen because a StringWriter does not do IO.

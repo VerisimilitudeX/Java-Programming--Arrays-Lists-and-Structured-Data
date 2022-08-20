@@ -1,6 +1,6 @@
 public class AdvancedMain {
     public static void main(String[] args) {
-        GladLib gb = new GladLib();
+        AdvancedGladLib gb = new AdvancedGladLib();
         gb.makeStory();
     }
 }
