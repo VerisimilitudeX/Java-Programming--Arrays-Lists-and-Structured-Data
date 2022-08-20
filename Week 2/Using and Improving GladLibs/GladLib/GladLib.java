@@ -161,7 +161,7 @@ public class GladLib {
 	private ArrayList<String> readIt(String source) {
 		ArrayList<String> list = new ArrayList<String>();
 		if (source.startsWith("http")) {
-			URLResource resource = new URLResource(source);
+			URLResource resource = new URLResource(dataSourceURL + source);
 			for (String line : resource.lines()) {
 				list.add(line);
 			}
