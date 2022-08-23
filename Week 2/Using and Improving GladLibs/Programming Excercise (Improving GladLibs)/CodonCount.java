@@ -7,7 +7,7 @@ public class CodonCount {
         codonCounts = new HashMap<String, Integer>();
     }
 
-    public void buildCodonMap(int start, String dna) {
+    private void buildCodonMap(int start, String dna) {
         codonCounts.clear();
         for (int i = start; i < dna.length(); i += 3) {
             try {
@@ -23,10 +23,11 @@ public class CodonCount {
     }
 
     public void printCodonCounts(int start, int end) {
+        buildCodonMap(0, "CGTTCAAGTTCAA");
         for (String codon : codonCounts.keySet()) {
             if (codonCounts.get(codon) >= start && codonCounts.get(codon) <= end) {
                 System.out.println(codon + "\t" + codonCounts.get(codon));
             }
         }
-    } 
+    }
 }
