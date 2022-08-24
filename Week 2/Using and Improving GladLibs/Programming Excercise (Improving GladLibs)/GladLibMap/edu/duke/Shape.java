@@ -1,6 +1,7 @@
-package edu.duke;
+package GladLibMap.edu.duke;
 
 import java.util.ArrayList;
+import edu.duke.FileResource;
 
 
 /**

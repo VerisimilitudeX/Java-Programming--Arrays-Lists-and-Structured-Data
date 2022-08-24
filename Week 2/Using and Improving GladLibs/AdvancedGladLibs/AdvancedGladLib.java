@@ -2,17 +2,8 @@ import edu.duke.*;
 import java.util.*;
 
 public class AdvancedGladLib {
-	private ArrayList<String> adjectiveList;
-	private ArrayList<String> nounList;
-	private ArrayList<String> colorList;
-	private ArrayList<String> countryList;
-	private ArrayList<String> nameList;
-	private ArrayList<String> animalList;
-	private ArrayList<String> timeList;
-	private ArrayList<String> verbList;
-	private ArrayList<String> fruitList;
-	private ArrayList<String> wordsSeen;
 	private HashMap<String, ArrayList<String>> myMap;
+	private ArrayList<String> wordsSeen;
 
 	private Random myRandom;
 
@@ -20,41 +11,24 @@ public class AdvancedGladLib {
 	private static String dataSourceDirectory = "datalong";
 
 	public AdvancedGladLib() {
-		myMap = new HashMap<String, ArrayList<String>>();
-		initializeFromSource(dataSourceDirectory);
 		myRandom = new Random();
 		wordsSeen = new ArrayList<String>();
-		myMap.put("adjective", adjectiveList);
-		myMap.put("noun", nounList);
-		myMap.put("color", colorList);
-		myMap.put("country", countryList);
-		myMap.put("name", nameList);
-		myMap.put("animal", animalList);
-		myMap.put("time", timeList);
-		myMap.put("verb", verbList);
-		myMap.put("fruit", fruitList);
+		myMap = new HashMap<String, ArrayList<String>>();
+		initializeFromSource(dataSourceDirectory);
 	}
 
 	public AdvancedGladLib(String source) {
-		initializeFromSource(source);
 		myRandom = new Random();
 		wordsSeen = new ArrayList<String>();
-		myMap.put("adjective", adjectiveList);
-		myMap.put("noun", nounList);
-		myMap.put("color", colorList);
-		myMap.put("country", countryList);
-		myMap.put("name", nameList);
-		myMap.put("animal", animalList);
-		myMap.put("time", timeList);
-		myMap.put("verb", verbList);
-		myMap.put("fruit", fruitList);
+		myMap = new HashMap<String, ArrayList<String>>();
+		initializeFromSource(source);
 	}
 
 	private void initializeFromSource(String source) {
-		String[] categories = { "adjective", "noun", "color", "country", "name", "animal", "timeframe", "verb",
-				"fruit" };
+		String[] categories = new String[] { "adjective", "noun", "country", "name", "animal", "timeframe", "verb", "fruit", "color" };
 		for (String category : categories) {
-			myMap.put(category, readIt(source + "/" + category + ".txt"));
+			ArrayList<String> words = readIt(source + "/" + category + ".txt");
+			myMap.put(category, words);
 		}
 	}
 
