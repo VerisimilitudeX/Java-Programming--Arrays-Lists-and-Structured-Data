@@ -25,7 +25,8 @@ public class AdvancedGladLib {
 	}
 
 	private void initializeFromSource(String source) {
-		String[] categories = new String[] { "adjective", "noun", "country", "name", "animal", "timeframe", "verb", "fruit", "color", "number" };
+		String[] categories = new String[] { "adjective", "noun", "country", "name", "animal", "timeframe", "verb",
+				"fruit", "color", "number" };
 		for (String category : categories) {
 			myMap.put(category, readIt(source + "/" + category + ".txt"));
 		}
