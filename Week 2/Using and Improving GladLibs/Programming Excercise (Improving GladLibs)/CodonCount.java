@@ -23,11 +23,15 @@ public class CodonCount {
     }
 
     public void printCodonCounts(int start, int end) {
-        buildCodonMap(0, "CGTTCAAGTTCAA");
+        buildCodonMap(0, "CAACCTTTAAAAGGAAGAAATCGCAGCAGCCCAGAACCAACTGCATAACATACAACCTTTAAAAGGAAGAAATCGCAGCAGCCCAGAACCAACTGCATAACATACAACCTTTAAAAGGAAGAAATCGCACCAGCCCAGAATCAACTGCATAACATACAAACTTTAAAAGGAAGAAATCTAACATACAACCTTTAAAAGGAAGAAATCGCACCAGCCCAGAATCAACTGCATAACATACAAACTTTAAAAGGAAGAAATCCAACCTTTAAAAGGAAGAAATCGCAGCAGCCCAGAACCAACTGCATAACATACAACCTTTAAAAGGAAGAAATCGCAGCAGCCCAGAACCAACTGCATAACATACAACCTTTAAAAGGAAGAAATCGCACCAGCCCAGAATCAACTGCATAACATACAAACTTTAAAAGGAAGAAATC");
+        int count = 0;
         for (String codon : codonCounts.keySet()) {
             if (codonCounts.get(codon) >= start && codonCounts.get(codon) <= end) {
+                count++;
                 System.out.println(codon + "\t" + codonCounts.get(codon));
             }
         }
+        System.out.println();
+        System.out.println(count);
     }
 }

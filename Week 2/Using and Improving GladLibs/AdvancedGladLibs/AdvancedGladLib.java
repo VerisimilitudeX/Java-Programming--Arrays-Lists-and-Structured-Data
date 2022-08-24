@@ -25,10 +25,9 @@ public class AdvancedGladLib {
 	}
 
 	private void initializeFromSource(String source) {
-		String[] categories = new String[] { "adjective", "noun", "country", "name", "animal", "timeframe", "verb", "fruit", "color" };
+		String[] categories = new String[] { "adjective", "noun", "country", "name", "animal", "timeframe", "verb", "fruit", "color", "number" };
 		for (String category : categories) {
-			ArrayList<String> words = readIt(source + "/" + category + ".txt");
-			myMap.put(category, words);
+			myMap.put(category, readIt(source + "/" + category + ".txt"));
 		}
 	}
 
@@ -39,6 +38,9 @@ public class AdvancedGladLib {
 
 	private String getSubstitute(String label) {
 		if (myMap.containsKey(label)) {
+			if (label.equals("time")) {
+				return myRandom.nextInt(100000) + "";
+			}
 			return randomFrom(myMap.get(label));
 		}
 		return "**" + label + "**";

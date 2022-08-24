@@ -1,50 +1,103 @@
+import edu.duke.*;
 import java.util.ArrayList;
-import edu.duke.FileResource;
 
 public class CharactersInPlay {
-    private ArrayList<String> characters = new ArrayList<String>();
-    private ArrayList<Integer> counts = new ArrayList<Integer>();
 
-    private void update(String person) {
-        if (characters.indexOf(person) != -1 && Character.isUpperCase(person.strip().charAt(1))) {
-            int index = characters.indexOf(person);
-            counts.set(index, counts.get(index) + 1);
-        } else {
-            characters.add(person);
-            int index = characters.indexOf(person);
-            counts.add(index, index + 1);
-        }
+    private ArrayList<String> character_name;
+    private ArrayList<Integer> count;
+    
+    public CharactersInPlay() {
+        character_name = new ArrayList<String>();
+        count = new ArrayList<Integer>();
     }
-
-    private void findAllCharacters() {
-        FileResource fr = new FileResource("Week 2/Telling A Random Story/ProgrammingRandomStoryData/likeit.txt");
-        for (String line : fr.lines()) {
-            if (line.indexOf(".") != -1) {
-                int index = line.indexOf(".");
-                String person = line.substring(0, index);
-                update(person);
-                index = 0;
-                person = "";
+    
+    public void update(String person){
+        
+        //person = person.toLowerCase();
+        int index = character_name.indexOf(person);
+        if (index == -1) {
+            character_name.add(person);
+            count.add(1);
+        }
+        
+        else {
+                int freq = count.get(index);
+                count.set(index,freq+1); 
+        }
+        
+    }
+    
+    public void findAllCharacters() {
+        character_name.clear();
+        count.clear();
+        
+        FileResource Resource = new FileResource("errors.txt");
+        
+        for (String line: Resource.lines()){
+            
+           /* for(int i = 0; i < line.length();i++){
+            // CurrentChar per line
+            char currChar = line.charAt(i);
+            // indexOf the CurrentChar
+            int idx = line.indexOf(currChar);
+            if(currChar == '.')
+            {
+              String possible_name = line.substring(0,idx);
+              //System.out.println("***"+ possible_name+ "***");
+              
+              update(possible_name); 
             }
-        }
-    }
-
-    private void charactersWithNumParts(int num1, int num2) {
-        for (String person : characters) {
-            if (counts.get(characters.indexOf(person)) >= num1 && counts.get(characters.indexOf(person)) <= num2 && person.length() < 25) {
-                System.out.println(person + "\t" + counts.get(characters.indexOf(person)));
+            */
+           if (line.contains(".")) {
+               
+               int idx = line.indexOf(".");
+               String possible_name = line.substring(0,idx);
+               update(possible_name);
+            
             }
+            
+            
+           }
+                                              
         }
-    }
-
+            
+    
+   
     public void tester() {
         findAllCharacters();
-        for (String ch : characters) {
-            if (ch.length() < 25) {
-                System.out.println(ch + "\t" + counts.get(characters.indexOf(ch)));
+        
+        for (int k =0; k < count.size();k++) {
+           
+            if (count.get(k) > 1) {
+            
+             System.out.println("The main character is: "+ character_name.get(k) +"\t"
+             +"The number of speaking parts is: "+ count.get(k));
+             
             }
+            
         }
-        System.out.println("----------------------------------------");
-        charactersWithNumParts(10, 15);
+            
+       int num1 = 10;
+       int num2 = 15;
+       charactersWithNumParts(num1, num2);
+    
     }
+    
+    public void charactersWithNumParts(int num1, int num2) {
+        
+        for (int k =0; k < count.size();k++) {
+           
+            if (count.get(k) >= num1 && count.get(k)<= num2) {
+            
+                System.out.println("The main character between : " + num1 + " and " + num2 
+                + " is " + character_name.get(k) +"\t"
+                +"The number of speaking parts is: "+ count.get(k));
+             
+            }
+            
+        }
+    
+    }
+    
+    
 }

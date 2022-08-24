@@ -57,6 +57,6 @@ public class WordsInFiles {
     public void tester() {
         buildWordFileMap();
         System.out.println("max number of files is " + maxNumber());
-        printFilesIn("cats");
+        printFilesIn("tree");
     }
 }

@@ -3,7 +3,7 @@ import java.util.*;
 
 public class WordFrequenciesMap {
 	
-	public void countWords(String filename){
+	public static void countWords(String filename){
 		FileResource fr = new FileResource(filename);
 		ArrayList<String> words = new ArrayList<String>();
 		ArrayList<Integer> counters = new ArrayList<Integer>();
@@ -29,7 +29,7 @@ public class WordFrequenciesMap {
 		System.out.println("total count: "+total+" different = "+words.size());
 	}
 	
-	public void countWordsMap(String filename){
+	public static void countWordsMap(String filename){
 		FileResource fr = new FileResource(filename);
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 
@@ -53,8 +53,8 @@ public class WordFrequenciesMap {
 		System.out.println("total count: "+total+" different = "+map.keySet().size());
 	}
 	
-	public void tester(){
-		String filename = "data/kjv10.txt";
+	public static void main(String[] args){
+		String filename = "errors.txt";
 		double start = System.currentTimeMillis();
 		countWords(filename);
 		double end = System.currentTimeMillis();
