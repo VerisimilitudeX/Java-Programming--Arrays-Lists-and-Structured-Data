@@ -9,6 +9,8 @@ public class Tester {
     }
 
     public void testLogAnalyzer() {
-        // complete method
+        LogAnalyzer la = new LogAnalyzer();
+        la.readFile("short-test_log");
+        la.printAll();
     }
 }
