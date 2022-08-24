@@ -16,7 +16,20 @@ public class LogAnalyzer {
         }
     }
 
+    public int countUniqueIPs() {
+        ArrayList<String> uniqueIPs = new ArrayList<>();
+        for (LogEntry le : records) {
+            String ip = le.getIpAddress();
+            if (!uniqueIPs.contains(ip)) {
+                uniqueIPs.add(ip);
+            }
+        }
+        return uniqueIPs.size();
+    }
+
     public void printAll() {
+        System.out.println("All Log Entries:");
+        System.out.println("------------------------------");
         for (LogEntry le : records) {
             System.out.println(le);
         }
