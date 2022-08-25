@@ -54,7 +54,10 @@ final class Token {
     /** The content buffer. */
     final StringBuilder content = new StringBuilder(INITIAL_TOKEN_LENGTH);
 
-    /** Token ready flag: indicates a valid token with content (ready for the parser). */
+    /**
+     * Token ready flag: indicates a valid token with content (ready for the
+     * parser).
+     */
     boolean isReady;
 
     void reset() {

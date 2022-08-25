@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
 /**
- * The <code>StorageResource</code> class stores any number of <code>String</code> objects and
- * allows access to these stored values one at a time, using the method <code>data</code>. These
- * strings can then be iterated over in the order they were added using a <code>for</code> loop.
+ * The <code>StorageResource</code> class stores any number of
+ * <code>String</code> objects and
+ * allows access to these stored values one at a time, using the method
+ * <code>data</code>. These
+ * strings can then be iterated over in the order they were added using a
+ * <code>for</code> loop.
  * 
  * <P>
- * This class mirrors an <code>ArrayList&lt;String&gt;</code> in some functionality, but is simpler
+ * This class mirrors an <code>ArrayList&lt;String&gt;</code> in some
+ * functionality, but is simpler
  * to use and fits the Duke/Coursersa model of creating and using iterables.
  * 
  * <P>
@@ -43,14 +46,15 @@ public class StorageResource {
     /**
      * Create an empty <code>StorageResource</code> object
      */
-    public StorageResource () {
+    public StorageResource() {
         myStrings = new ArrayList<String>();
     }
 
     /**
-     * Create a <code>StorageResource</code> object, loaded with the Strings passed as parameters.
+     * Create a <code>StorageResource</code> object, loaded with the Strings passed
+     * as parameters.
      */
-    StorageResource (String... data) {
+    StorageResource(String... data) {
         myStrings = new ArrayList<String>(Arrays.asList(data));
     }
 
@@ -59,14 +63,14 @@ public class StorageResource {
      * 
      * @param other the original list being copied
      */
-    public StorageResource (StorageResource other) {
+    public StorageResource(StorageResource other) {
         myStrings = new ArrayList<String>(other.myStrings);
     }
 
     /**
      * Remove all strings from this object so that <code>.size() == 0</code>.
      */
-    public void clear () {
+    public void clear() {
         myStrings.clear();
     }
 
@@ -75,7 +79,7 @@ public class StorageResource {
      * 
      * @param s the value added
      */
-    public void add (String s) {
+    public void add(String s) {
         myStrings.add(s);
     }
 
@@ -84,7 +88,7 @@ public class StorageResource {
      * 
      * @return the number of strings stored in the object
      */
-    public int size () {
+    public int size() {
         return myStrings.size();
     }
 
@@ -94,16 +98,17 @@ public class StorageResource {
      * @param s string searched for
      * @return true if and only if s is stored in this object
      */
-    public boolean contains (String s) {
+    public boolean contains(String s) {
         return myStrings.contains(s);
     }
 
     /**
      * Create and return an iterable for all strings in this object.
      * 
-     * @return an <code>Iterable</code> that allows access to each string in the order stored
+     * @return an <code>Iterable</code> that allows access to each string in the
+     *         order stored
      */
-    public Iterable<String> data () {
+    public Iterable<String> data() {
         return myStrings;
     }
 }

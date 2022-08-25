@@ -2,7 +2,6 @@ package edu.duke;
 
 import java.util.Iterator;
 
-
 /**
  * This utility class allows multiple classes to iterate over a text source in
  * multiple ways.
@@ -20,7 +19,7 @@ class TextIterable implements Iterable<String> {
     /**
      * Create from a given string.
      */
-    public TextIterable (String source, String regexp) {
+    public TextIterable(String source, String regexp) {
         myStrings = source.split(regexp);
     }
 
@@ -28,17 +27,17 @@ class TextIterable implements Iterable<String> {
      * @see java.lang.Iterator
      */
     @Override
-    public Iterator<String> iterator () {
+    public Iterator<String> iterator() {
         return new Iterator<String>() {
             private int myCount = 0;
 
             @Override
-            public boolean hasNext () {
+            public boolean hasNext() {
                 return myCount < myStrings.length;
             }
 
             @Override
-            public String next () {
+            public String next() {
                 String s = myStrings[myCount];
                 myCount++;
                 return s;

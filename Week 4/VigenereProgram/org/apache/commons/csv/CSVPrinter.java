@@ -42,20 +42,25 @@ public final class CSVPrinter implements Flushable, Closeable {
     private boolean newRecord = true;
 
     /**
-     * Creates a printer that will print values to the given stream following the CSVFormat.
+     * Creates a printer that will print values to the given stream following the
+     * CSVFormat.
      * <p>
-     * Currently, only a pure encapsulation format or a pure escaping format is supported. Hybrid formats (encapsulation
+     * Currently, only a pure encapsulation format or a pure escaping format is
+     * supported. Hybrid formats (encapsulation
      * and escaping with a different character) are not supported.
      * </p>
      *
      * @param out
-     *            stream to which to print. Must not be null.
+     *               stream to which to print. Must not be null.
      * @param format
-     *            the CSV format. Must not be null.
+     *               the CSV format. Must not be null.
      * @throws IOException
-     *             thrown if the optional header cannot be printed.
+     *                                  thrown if the optional header cannot be
+     *                                  printed.
      * @throws IllegalArgumentException
-     *             thrown if the parameters of the format are inconsistent or if either out or format are null.
+     *                                  thrown if the parameters of the format are
+     *                                  inconsistent or if either out or format are
+     *                                  null.
      */
     public CSVPrinter(final Appendable out, final CSVFormat format) throws IOException {
         Assertions.notNull(out, "out");
@@ -63,8 +68,10 @@ public final class CSVPrinter implements Flushable, Closeable {
 
         this.out = out;
         this.format = format;
-        // TODO: Is it a good idea to do this here instead of on the first call to a print method?
-        // It seems a pain to have to track whether the header has already been printed or not.
+        // TODO: Is it a good idea to do this here instead of on the first call to a
+        // print method?
+        // It seems a pain to have to track whether the header has already been printed
+        // or not.
         if (format.getHeaderComments() != null) {
             for (final String line : format.getHeaderComments()) {
                 if (line != null) {
@@ -92,7 +99,7 @@ public final class CSVPrinter implements Flushable, Closeable {
      * Flushes the underlying stream.
      *
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     @Override
     public void flush() throws IOException {
@@ -111,12 +118,13 @@ public final class CSVPrinter implements Flushable, Closeable {
     }
 
     /**
-     * Prints the string as the next value on the line. The value will be escaped or encapsulated as needed.
+     * Prints the string as the next value on the line. The value will be escaped or
+     * encapsulated as needed.
      *
      * @param value
-     *            value to be output.
+     *              value to be output.
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void print(final Object value) throws IOException {
         format.print(value, out, newRecord);
@@ -127,16 +135,18 @@ public final class CSVPrinter implements Flushable, Closeable {
      * Prints a comment on a new line among the delimiter separated values.
      *
      * <p>
-     * Comments will always begin on a new line and occupy a least one full line. The character specified to start
-     * comments and a space will be inserted at the beginning of each new line in the comment.
+     * Comments will always begin on a new line and occupy a least one full line.
+     * The character specified to start
+     * comments and a space will be inserted at the beginning of each new line in
+     * the comment.
      * </p>
      *
      * If comments are disabled in the current CSV format this method does nothing.
      *
      * @param comment
-     *            the comment to output
+     *                the comment to output
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void printComment(final String comment) throws IOException {
         if (!format.isCommentMarkerSet()) {
@@ -150,19 +160,19 @@ public final class CSVPrinter implements Flushable, Closeable {
         for (int i = 0; i < comment.length(); i++) {
             final char c = comment.charAt(i);
             switch (c) {
-            case CR:
-                if (i + 1 < comment.length() && comment.charAt(i + 1) == LF) {
-                    i++;
-                }
-                //$FALL-THROUGH$ break intentionally excluded.
-            case LF:
-                println();
-                out.append(format.getCommentMarker().charValue());
-                out.append(SP);
-                break;
-            default:
-                out.append(c);
-                break;
+                case CR:
+                    if (i + 1 < comment.length() && comment.charAt(i + 1) == LF) {
+                        i++;
+                    }
+                    //$FALL-THROUGH$ break intentionally excluded.
+                case LF:
+                    println();
+                    out.append(format.getCommentMarker().charValue());
+                    out.append(SP);
+                    break;
+                default:
+                    out.append(c);
+                    break;
             }
         }
         println();
@@ -172,7 +182,7 @@ public final class CSVPrinter implements Flushable, Closeable {
      * Outputs the record separator.
      *
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void println() throws IOException {
         format.println(out);
@@ -180,17 +190,20 @@ public final class CSVPrinter implements Flushable, Closeable {
     }
 
     /**
-     * Prints the given values a single record of delimiter separated values followed by the record separator.
+     * Prints the given values a single record of delimiter separated values
+     * followed by the record separator.
      *
      * <p>
-     * The values will be quoted if needed. Quotes and newLine characters will be escaped. This method adds the record
-     * separator to the output after printing the record, so there is no need to call {@link #println()}.
+     * The values will be quoted if needed. Quotes and newLine characters will be
+     * escaped. This method adds the record
+     * separator to the output after printing the record, so there is no need to
+     * call {@link #println()}.
      * </p>
      *
      * @param values
-     *            values to output.
+     *               values to output.
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void printRecord(final Iterable<?> values) throws IOException {
         for (final Object value : values) {
@@ -200,17 +213,20 @@ public final class CSVPrinter implements Flushable, Closeable {
     }
 
     /**
-     * Prints the given values a single record of delimiter separated values followed by the record separator.
+     * Prints the given values a single record of delimiter separated values
+     * followed by the record separator.
      *
      * <p>
-     * The values will be quoted if needed. Quotes and newLine characters will be escaped. This method adds the record
-     * separator to the output after printing the record, so there is no need to call {@link #println()}.
+     * The values will be quoted if needed. Quotes and newLine characters will be
+     * escaped. This method adds the record
+     * separator to the output after printing the record, so there is no need to
+     * call {@link #println()}.
      * </p>
      *
      * @param values
-     *            values to output.
+     *               values to output.
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void printRecord(final Object... values) throws IOException {
         format.printRecord(out, values);
@@ -218,11 +234,14 @@ public final class CSVPrinter implements Flushable, Closeable {
     }
 
     /**
-     * Prints all the objects in the given collection handling nested collections/arrays as records.
+     * Prints all the objects in the given collection handling nested
+     * collections/arrays as records.
      *
      * <p>
-     * If the given collection only contains simple objects, this method will print a single record like
-     * {@link #printRecord(Iterable)}. If the given collections contains nested collections/arrays those nested elements
+     * If the given collection only contains simple objects, this method will print
+     * a single record like
+     * {@link #printRecord(Iterable)}. If the given collections contains nested
+     * collections/arrays those nested elements
      * will each be printed as records using {@link #printRecord(Object...)}.
      * </p>
      *
@@ -252,9 +271,9 @@ public final class CSVPrinter implements Flushable, Closeable {
      * </pre>
      *
      * @param values
-     *            the values to print.
+     *               the values to print.
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void printRecords(final Iterable<?> values) throws IOException {
         for (final Object value : values) {
@@ -269,12 +288,16 @@ public final class CSVPrinter implements Flushable, Closeable {
     }
 
     /**
-     * Prints all the objects in the given array handling nested collections/arrays as records.
+     * Prints all the objects in the given array handling nested collections/arrays
+     * as records.
      *
      * <p>
-     * If the given array only contains simple objects, this method will print a single record like
-     * {@link #printRecord(Object...)}. If the given collections contains nested collections/arrays those nested
-     * elements will each be printed as records using {@link #printRecord(Object...)}.
+     * If the given array only contains simple objects, this method will print a
+     * single record like
+     * {@link #printRecord(Object...)}. If the given collections contains nested
+     * collections/arrays those nested
+     * elements will each be printed as records using
+     * {@link #printRecord(Object...)}.
      * </p>
      *
      * <p>
@@ -303,9 +326,9 @@ public final class CSVPrinter implements Flushable, Closeable {
      * </pre>
      *
      * @param values
-     *            the values to print.
+     *               the values to print.
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     public void printRecords(final Object... values) throws IOException {
         for (final Object value : values) {
@@ -323,11 +346,11 @@ public final class CSVPrinter implements Flushable, Closeable {
      * Prints all the objects in the given JDBC result set.
      *
      * @param resultSet
-     *            result set the values to print.
+     *                  result set the values to print.
      * @throws IOException
-     *             If an I/O error occurs
+     *                      If an I/O error occurs
      * @throws SQLException
-     *             if a database access error occurs
+     *                      if a database access error occurs
      */
     public void printRecords(final ResultSet resultSet) throws SQLException, IOException {
         final int columnCount = resultSet.getMetaData().getColumnCount();

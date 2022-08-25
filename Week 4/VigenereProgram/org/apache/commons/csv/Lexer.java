@@ -41,9 +41,12 @@ import java.io.IOException;
 final class Lexer implements Closeable {
 
     /**
-     * Constant char to use for disabling comments, escapes and encapsulation. The value -2 is used because it
-     * won't be confused with an EOF signal (-1), and because the Unicode value {@code FFFE} would be encoded as two
-     * chars (using surrogates) and thus there should never be a collision with a real text char.
+     * Constant char to use for disabling comments, escapes and encapsulation. The
+     * value -2 is used because it
+     * won't be confused with an EOF signal (-1), and because the Unicode value
+     * {@code FFFE} would be encoded as two
+     * chars (using surrogates) and thus there should never be a collision with a
+     * real text char.
      */
     private static final char DISABLED = '\ufffe';
 
@@ -75,10 +78,11 @@ final class Lexer implements Closeable {
      * </p>
      *
      * @param token
-     *            an existing Token object to reuse. The caller is responsible to initialize the Token.
+     *              an existing Token object to reuse. The caller is responsible to
+     *              initialize the Token.
      * @return the next token found
      * @throws java.io.IOException
-     *             on stream access error
+     *                             on stream access error
      */
     Token nextToken(final Token token) throws IOException {
 
@@ -88,7 +92,8 @@ final class Lexer implements Closeable {
         // read the next char and set eol
         int c = reader.read();
         /*
-         * Note: The following call will swallow LF if c == CR. But we don't need to know if the last char was CR or LF
+         * Note: The following call will swallow LF if c == CR. But we don't need to
+         * know if the last char was CR or LF
          * - they are equivalent here.
          */
         boolean eol = readEndOfLine(c);
@@ -167,8 +172,10 @@ final class Lexer implements Closeable {
     /**
      * Parses a simple token.
      * <p/>
-     * Simple token are tokens which are not surrounded by encapsulators. A simple token might contain escaped
-     * delimiters (as \, or \;). The token is finished when one of the following conditions become true:
+     * Simple token are tokens which are not surrounded by encapsulators. A simple
+     * token might contain escaped
+     * delimiters (as \, or \;). The token is finished when one of the following
+     * conditions become true:
      * <ul>
      * <li>end of line has been reached (EORECORD)</li>
      * <li>end of stream has been reached (EOF)</li>
@@ -176,12 +183,12 @@ final class Lexer implements Closeable {
      * </ul>
      *
      * @param token
-     *            the current token
+     *              the current token
      * @param ch
-     *            the current character
+     *              the current character
      * @return the filled token
      * @throws IOException
-     *             on stream access error
+     *                     on stream access error
      */
     private Token parseSimpleToken(final Token token, int ch) throws IOException {
         // Faster to use while(true)+break than while(token.type == INVALID)
@@ -220,22 +227,28 @@ final class Lexer implements Closeable {
     /**
      * Parses an encapsulated token.
      * <p/>
-     * Encapsulated tokens are surrounded by the given encapsulating-string. The encapsulator itself might be included
-     * in the token using a doubling syntax (as "", '') or using escaping (as in \", \'). Whitespaces before and after
-     * an encapsulated token are ignored. The token is finished when one of the following conditions become true:
+     * Encapsulated tokens are surrounded by the given encapsulating-string. The
+     * encapsulator itself might be included
+     * in the token using a doubling syntax (as "", '') or using escaping (as in \",
+     * \'). Whitespaces before and after
+     * an encapsulated token are ignored. The token is finished when one of the
+     * following conditions become true:
      * <ul>
-     * <li>an unescaped encapsulator has been reached, and is followed by optional whitespace then:</li>
+     * <li>an unescaped encapsulator has been reached, and is followed by optional
+     * whitespace then:</li>
      * <ul>
      * <li>delimiter (TOKEN)</li>
      * <li>end of line (EORECORD)</li>
      * </ul>
-     * <li>end of stream has been reached (EOF)</li> </ul>
+     * <li>end of stream has been reached (EOF)</li>
+     * </ul>
      *
      * @param token
-     *            the current token
+     *              the current token
      * @return a valid token object
      * @throws IOException
-     *             on invalid state: EOF before closing encapsulator or invalid character before delimiter or EOL
+     *                     on invalid state: EOF before closing encapsulator or
+     *                     invalid character before delimiter or EOL
      */
     private Token parseEncapsulatedToken(final Token token) throws IOException {
         // save current line number in case needed for IOE
@@ -314,43 +327,46 @@ final class Lexer implements Closeable {
     /**
      * Handle an escape sequence.
      * The current character must be the escape character.
-     * On return, the next character is available by calling {@link ExtendedBufferedReader#getLastChar()}
+     * On return, the next character is available by calling
+     * {@link ExtendedBufferedReader#getLastChar()}
      * on the input stream.
      *
-     * @return the unescaped character (as an int) or {@link Constants#END_OF_STREAM} if char following the escape is
-     *      invalid.
-     * @throws IOException if there is a problem reading the stream or the end of stream is detected:
-     *      the escape character is not allowed at end of strem
+     * @return the unescaped character (as an int) or
+     *         {@link Constants#END_OF_STREAM} if char following the escape is
+     *         invalid.
+     * @throws IOException if there is a problem reading the stream or the end of
+     *                     stream is detected:
+     *                     the escape character is not allowed at end of strem
      */
     int readEscape() throws IOException {
         // the escape char has just been read (normally a backslash)
         final int ch = reader.read();
         switch (ch) {
-        case 'r':
-            return CR;
-        case 'n':
-            return LF;
-        case 't':
-            return TAB;
-        case 'b':
-            return BACKSPACE;
-        case 'f':
-            return FF;
-        case CR:
-        case LF:
-        case FF: // TODO is this correct?
-        case TAB: // TODO is this correct? Do tabs need to be escaped?
-        case BACKSPACE: // TODO is this correct?
-            return ch;
-        case END_OF_STREAM:
-            throw new IOException("EOF whilst processing escape sequence");
-        default:
-            // Now check for meta-characters
-            if (isMetaChar(ch)) {
+            case 'r':
+                return CR;
+            case 'n':
+                return LF;
+            case 't':
+                return TAB;
+            case 'b':
+                return BACKSPACE;
+            case 'f':
+                return FF;
+            case CR:
+            case LF:
+            case FF: // TODO is this correct?
+            case TAB: // TODO is this correct? Do tabs need to be escaped?
+            case BACKSPACE: // TODO is this correct?
                 return ch;
-            }
-            // indicate unexpected char - available from in.getLastChar()
-            return END_OF_STREAM;
+            case END_OF_STREAM:
+                throw new IOException("EOF whilst processing escape sequence");
+            default:
+                // Now check for meta-characters
+                if (isMetaChar(ch)) {
+                    return ch;
+                }
+                // indicate unexpected char - available from in.getLastChar()
+                return END_OF_STREAM;
         }
     }
 
@@ -365,7 +381,8 @@ final class Lexer implements Closeable {
     }
 
     /**
-     * Greedily accepts \n, \r and \r\n This checker consumes silently the second control-character...
+     * Greedily accepts \n, \r and \r\n This checker consumes silently the second
+     * control-character...
      *
      * @return true if the given or next character is a line-terminator
      */
@@ -390,7 +407,8 @@ final class Lexer implements Closeable {
     }
 
     /**
-     * Checks if the current character represents the start of a line: a CR, LF or is at the start of the file.
+     * Checks if the current character represents the start of a line: a CR, LF or
+     * is at the start of the file.
      *
      * @param ch the character to check
      * @return true if the character is at the start of a line.
@@ -424,16 +442,16 @@ final class Lexer implements Closeable {
 
     private boolean isMetaChar(final int ch) {
         return ch == delimiter ||
-               ch == escape ||
-               ch == quoteChar ||
-               ch == commentStart;
+                ch == escape ||
+                ch == quoteChar ||
+                ch == commentStart;
     }
 
     /**
      * Closes resources.
      *
      * @throws IOException
-     *             If an I/O error occurs
+     *                     If an I/O error occurs
      */
     @Override
     public void close() throws IOException {
