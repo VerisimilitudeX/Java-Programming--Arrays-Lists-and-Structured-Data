@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Date;
+
 import edu.duke.FileResource;
 
 public class LogAnalyzer {
@@ -25,6 +27,46 @@ public class LogAnalyzer {
             }
         }
         return uniqueIPs.size();
+    }
+
+    public void printAllHigherThanNum(int num) {
+        System.out.println("\nAll higher than " + num + ":");
+        System.out.println("-------------------------------");
+        for (LogEntry le : records) {
+            if (le.getStatusCode() > num) {
+                System.out.println(le);
+            }
+        }
+    }
+
+    public void uniqueIPVisitsOnDay(String someday) {
+        ArrayList<String> uniqueIPs = new ArrayList<>();
+        String month = someday.substring(0, 3);
+        String day = someday.substring(4, 6);
+
+        for (LogEntry le : records) {
+            String date = le.getAccessTime().toString();
+            String month2 = date.substring(4, 7);
+            String day2 = date.substring(8, 10);
+            if (month.equals(month2) && day.equals(day2)) {
+                String ip = le.getIpAddress();
+                if (!uniqueIPs.contains(ip)) {
+                    uniqueIPs.add(ip);
+                }
+            }
+        }
+        System.out.println("\nUnique IPs on " + someday + ": " + uniqueIPs);
+    }
+
+    public void countUniqueIPsInRange(int low, int high) {
+        ArrayList<String> uniqueIPs = new ArrayList<>();
+        for (LogEntry le : records) {
+            String ip = le.getIpAddress();
+            if (!uniqueIPs.contains(ip) && le.getStatusCode() >= low && le.getStatusCode() <= high) {
+                uniqueIPs.add(ip);
+            }
+        }
+        System.out.println("\nNumber of unique IPs in range " + low + "-" + high + ": " + uniqueIPs.size());
     }
 
     public void printAll() {
