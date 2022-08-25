@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
-
 import edu.duke.FileResource;
 
 public class LogAnalyzer {
