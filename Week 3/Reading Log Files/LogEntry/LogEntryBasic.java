@@ -7,7 +7,7 @@ public class LogEntryBasic {
       private int statusCode;
       private int bytesReturned;
 
-      public void LogEntry(String ip, Date time, String req, int status, int bytes) {
+      public LogEntryBasic(String ip, Date time, String req, int status, int bytes) {
             ipAddress = ip;
             accessTime = time;
             request = req;

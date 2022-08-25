@@ -1,11 +1,14 @@
 import java.util.ArrayList;
+
+import javax.print.attribute.Size2DSyntax;
+
 import edu.duke.FileResource;
 
 public class LogAnalyzer {
-    private ArrayList<LogEntry> records;
+    private final ArrayList<LogEntry> records;
 
     public LogAnalyzer() {
-        records = new ArrayList<LogEntry>();
+        records = new ArrayList<>();
     }
 
     public void readFile(String filename) {
@@ -53,7 +56,7 @@ public class LogAnalyzer {
                 }
             }
         }
-        System.out.println("\nUnique IPs on " + someday + ": " + uniqueIPs);
+        System.out.println("\n" + uniqueIPs.size() + " Unique IPs on " + someday + ": " + uniqueIPs);
     }
 
     public void countUniqueIPsInRange(int low, int high) {
@@ -64,7 +67,7 @@ public class LogAnalyzer {
                 uniqueIPs.add(ip);
             }
         }
-        System.out.println("\nNumber of unique IPs in range " + low + "-" + high + ": " + uniqueIPs.size());
+        System.out.println("\n" + uniqueIPs.size() + " Unique IPs in Range " + low + "-" + high + ": " + uniqueIPs);
     }
 
     public void printAll() {
