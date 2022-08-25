@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Tester {
+public class TesterBasic{
     public void testLogEntry() {
         LogEntry le = new LogEntry("1.2.3.4", new Date(), "example request", 200, 500);
         System.out.println(le);
