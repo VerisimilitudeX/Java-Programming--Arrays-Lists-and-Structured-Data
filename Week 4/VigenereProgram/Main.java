@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import edu.duke.FileResource;
 
 public class Main {
